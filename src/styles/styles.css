@@ -1,0 +1,15 @@
+.h-100-vh {
+    height: calc(100vh - 56px);
+}
+
+.range-handle[data-toggle="tooltip"]::before {
+    content: attr(title);
+    position: relative;
+    top: -35px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #000;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
