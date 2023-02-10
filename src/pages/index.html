@@ -70,24 +70,56 @@
                     <div class="container-fluid p-0">
                         <h3>Get an Activity</h3>
                         <p class="h6 mb-4">Find an activity of your choice, tailored to your specific needs, by using
-                            filters.
+                            the filters.
                         </p>
-                        <dl class="row">
+                        <dl class="row mb-5">
                             <dt class="col-sm-3">Filter</dt>
                             <dd class="col-sm-9 font-weight-bold">Description</dd>
 
                             <dt class="col-sm-3 font-weight-light">Participants</dt>
                             <dd class="col-sm-9 font-weight-light">Specify amount of activity participants ranging from
                                 1 to 10 (included)</dd>
-                            <dt class="col-sm-3 font-weight-light">Price</dt>
+                            <dt class="col-sm-3 font-weight-light">Expenses</dt>
                             <dd class="col-sm-9 font-weight-light">Check for a free activity</dd>
                             <dt class="col-sm-3 font-weight-light">Type</dt>
                             <dd class="col-sm-9 font-weight-light">Choose an activity type from a broad variety of
                                 choices</dd>
                         </dl>
-                        <label for="num_par">Number of Participants</label>
-                        <input type="range" class="custom-range" min="1" max="10" step="1" value="1" id="num_par">
-                        <span class="range-handle" data-toggle="tooltip" title="0"></span>
+                        <form id="apiForm" onsubmit="formSubmitHandler(event)">
+                            <div class="form-group">
+                                <label for="numPar">Number of Participants: <span id="numParNumber">1</span></label>
+                                <input type="range" class="custom-range" min="1" max="10" step="1" value="1" id="numPar"
+                                    name="participants">
+                                <div class="row mt-4">
+                                    <div class="col-6">
+                                        <label for="whatType">Activity Type</label>
+                                        <select class="form-control w-75" id="whatType" name="type">
+                                            <option>Education</option>
+                                            <option>Recreational</option>
+                                            <option>Social</option>
+                                            <option>DIY</option>
+                                            <option>Charity</option>
+                                            <option>Cooking</option>
+                                            <option>Relaxation</option>
+                                            <option>Music</option>
+                                            <option>Busywork</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="d-block">Activity Expense(s)</p>
+                                        <input class="form-check-input ml-0" type="checkbox" value="" id="isFree"
+                                            name="price">
+                                        <label class="form-check-label ml-4" for="isFree">
+                                            Free
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 mt-5">
+                                <button type="submit" class="btn btn-outline-primary mr-4">Submit</button>
+                                <button type="reset" class="btn btn-outline-dark">Reset</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-6">
