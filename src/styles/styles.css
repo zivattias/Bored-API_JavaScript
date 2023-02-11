@@ -1,3 +1,8 @@
 .h-100-vh {
     height: calc(100vh - 56px);
 }
+
+.scrollable {
+    overflow-y: scroll;
+    height: 250px;
+}

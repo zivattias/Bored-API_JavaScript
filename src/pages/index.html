@@ -85,7 +85,7 @@
                             <dd class="col-sm-9 font-weight-light">Choose an activity type from a broad variety of
                                 choices</dd>
                         </dl>
-                        <form id="apiForm" onsubmit="formSubmitHandler(event)">
+                        <form id="apiForm" onsubmit="getActivity(event)">
                             <div class="form-group">
                                 <label for="numPar">Number of Participants: <span id="numParNumber">1</span></label>
                                 <input type="range" class="custom-range" min="1" max="10" step="1" value="1" id="numPar"
@@ -136,6 +136,8 @@
                                 <div class="w-100 mt-5">
                                     <button type="submit" class="btn btn-outline-primary mr-4">Submit</button>
                                     <button type="reset" class="btn btn-outline-dark">Reset</button>
+                                    <div id="errorAlert" class="alert mt-4 d-none" role="alert">
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -145,12 +147,17 @@
                     <div class="row h-100">
                         <div class="col-12 h-50 border rounded p-4 bg-light">
                             <h3>Activity List</h3>
-                            <p class="h6 mb-4">Your activities will be listed below.
+                            <p class="h6 mb-4">Generated activities will be listed below.
                             </p>
+                            <ul id="activityList" class="list-group scrollable p-3">
+
+                            </ul>
                         </div>
                         <div class="col-12 h-50 border border-top-0 rounded p-4 bg-light">
                             <h3>Past Submissions</h3>
-                            <p class="h6 mb-4">Submissions will be listed below.
+                            <p class="h6 mb-4">Submissions history.
+                            <ul id="submissionsList" class="list-group">
+                            </ul>
                             </p>
                         </div>
                     </div>

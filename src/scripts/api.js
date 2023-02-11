@@ -1,5 +1,3 @@
-const API_URL = "http://www.boredapi.com/api/activity/"
-
 // Enable Bootstrap's tooltip utility - currently unneeded:
 // $(function () {
 //     $('[data-toggle="tooltip"]').tooltip()
@@ -11,11 +9,59 @@ window.addEventListener("load", () => {
     isFreeCheckboxHandler();
 })
 
+// Fetch API functionality:
+function getActivity(event) {
+    event.preventDefault()
+    let apiURL = "http://www.boredapi.com/api/activity?"
+    const form = document.getElementById("apiForm")
+    formData = new FormData(event.target)
+    let queryString = Array.from(formData.entries())
+        .map(([key, value]) => `${key}=${value.toLowerCase()}`)
+        .join('&')
+    apiURL += queryString
+    fetch(`${apiURL}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const alert = document.getElementById("errorAlert")
+            if ("error" in data) {
+                alert.classList.remove("alert-success")
+                alert.classList.add("alert-danger")
+                alert.innerHTML = "No activity found with the specified parameters, please try again."
+                alert.classList.remove("d-none")
+            } else {
+                // Disable form fields while request is in the works:
+                form.querySelectorAll('input, button, select').forEach((field) => {
+                    field.setAttribute('disabled', true)
+                })
+                // Alert presentation:
+                alert.classList.remove("alert-danger")
+                alert.classList.add("alert-success")
+                alert.innerHTML = "Successfully added activity!"
+                alert.classList.remove("d-none")
+                // Add activity data to Activity List:
+                const item = document.createElement("li")
+                item.classList.add("list-group-item")
+                if (data.price > 0.0) {
+                    item.innerHTML = `${data.activity}, up to ${data.participants} people. Price: ${data.price * 100}%`
+                } else {
+                    item.innerHTML = `${data.activity}, up to ${data.participants} people.`
+                }
+
+                const activityList = document.getElementById("activityList");
+                activityList.insertBefore(item, activityList.firstChild);
+                // Enable form fields once request has been completed:
+                form.querySelectorAll('input, button, select').forEach((field) => {
+                    field.removeAttribute('disabled');
+                })
+            }
+        })
+}
+
 // Change number of participants on range input:
 function changeParticipantsNumber() {
-    const participantsForm = document.getElementById("apiForm")
     const participantsNumber = document.getElementById("numParNumber")
     const participantsRange = document.getElementById("numPar")
+    const participantsForm = document.getElementById("apiForm")
 
     participantsRange.addEventListener("input", () => {
         participantsNumber.innerHTML = participantsRange.value
@@ -27,6 +73,7 @@ function changeParticipantsNumber() {
     })
 }
 
+// Adjust 'price' API query param according to isFree checkbox function:
 function isFreeCheckboxHandler() {
     const checkbox = document.getElementById("isFree");
     checkbox.addEventListener("change", () => {
@@ -41,20 +88,4 @@ function isFreeCheckboxHandler() {
     // checkbox.addEventListener("change", () => {
     //     checkbox.value = checkbox.checked ? "0.0" : "";
     // })
-}
-
-
-// Form submit handler & Fetch API:
-function formSubmitHandler(event) {
-    event.preventDefault()
-    fd = new FormData(event.target)
-    console.log(fd)
-    for (const pair of fd.entries()) {
-        // Bored API query param for 'type' should be lowercased:
-        if (pair[0] === 'type') {
-            pair[1] = pair[1].toLowerCase()
-        }
-        console.log(pair)
-    }
-
 }
