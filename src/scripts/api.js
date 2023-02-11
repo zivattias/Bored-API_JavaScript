@@ -12,7 +12,7 @@ window.addEventListener("load", () => {
 // Fetch API functionality:
 function getActivity(event) {
     event.preventDefault()
-    let apiURL = "http://www.boredapi.com/api/activity?"
+    let apiURL = "https://www.boredapi.com/api/activity?"
     const form = document.getElementById("apiForm")
     formData = new FormData(event.target)
     let queryString = Array.from(formData.entries())
