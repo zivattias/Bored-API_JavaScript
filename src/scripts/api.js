@@ -40,13 +40,24 @@ function getActivity(event) {
                 alert.classList.remove("d-none")
                 // Add activity data to Activity List:
                 const item = document.createElement("li")
-                item.classList.add("list-group-item")
-                if (data.price > 0.0) {
-                    item.innerHTML = `${data.activity}, up to ${data.participants} people. Price: ${data.price * 100}%`
-                } else {
-                    item.innerHTML = `${data.activity}, up to ${data.participants} people.`
-                }
+                const activityText = document.createElement("p")
+                const del_button = document.createElement("button")
 
+                activityText.setAttribute('class', 'h6 d-inline m-0')
+                del_button.setAttribute('type', 'button')
+                del_button.setAttribute('aria-label', 'Close')
+                del_button.setAttribute('class', 'btn btn-outline-dark btn-sm')
+                del_button.innerHTML = 'X'
+                del_button.setAttribute('onclick', 'removeItemFromList(this)')
+
+                item.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center")
+                if (data.price > 0.0) {
+                    activityText.innerHTML = `${data.activity}, up to ${data.participants} people. Price: ${data.price * 100}%`
+                } else {
+                    activityText.innerHTML = `${data.activity}, up to ${data.participants} people.`
+                }
+                item.appendChild(activityText)
+                item.appendChild(del_button)
                 const activityList = document.getElementById("activityList");
                 activityList.insertBefore(item, activityList.firstChild);
                 // Enable form fields once request has been completed:
@@ -88,4 +99,10 @@ function isFreeCheckboxHandler() {
     // checkbox.addEventListener("change", () => {
     //     checkbox.value = checkbox.checked ? "0.0" : "";
     // })
+}
+
+// Delete button functionality:
+function removeItemFromList(btn) {
+    parentItem = btn.parentNode
+    parentItem.remove()
 }
