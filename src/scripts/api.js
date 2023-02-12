@@ -14,15 +14,15 @@ function getActivity(event) {
     event.preventDefault()
     let apiURL = "https://www.boredapi.com/api/activity?"
     const form = document.getElementById("apiForm")
-    // Disable form fields while request is in the works:
-    form.querySelectorAll('input, button, select').forEach((field) => {
-        field.setAttribute('disabled', true)
-    })
     formData = new FormData(event.target)
     let queryString = Array.from(formData.entries())
         .map(([key, value]) => `${key}=${value.toLowerCase()}`)
         .join('&')
     apiURL += queryString
+    // Disable form fields while request is in the works:
+    form.querySelectorAll('input, button, select').forEach((field) => {
+        field.setAttribute('disabled', true)
+    })
     fetch(`${apiURL}`)
         .then((response) => response.json())
         .then((data) => {
