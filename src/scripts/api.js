@@ -11,9 +11,14 @@ window.addEventListener("load", () => {
 
 // Fetch API functionality:
 function getActivity(event) {
+
     event.preventDefault()
     let apiURL = "https://www.boredapi.com/api/activity?"
     const form = document.getElementById("apiForm")
+    // Disable form fields while request is in the works:
+    form.querySelectorAll('input, button, select').forEach((field) => {
+        field.setAttribute('disabled', true)
+    })
     formData = new FormData(event.target)
     let queryString = Array.from(formData.entries())
         .map(([key, value]) => `${key}=${value.toLowerCase()}`)
@@ -29,10 +34,6 @@ function getActivity(event) {
                 alert.innerHTML = "No activity found with the specified parameters, please try again."
                 alert.classList.remove("d-none")
             } else {
-                // Disable form fields while request is in the works:
-                form.querySelectorAll('input, button, select').forEach((field) => {
-                    field.setAttribute('disabled', true)
-                })
                 // Alert presentation:
                 alert.classList.remove("alert-danger")
                 alert.classList.add("alert-success")
