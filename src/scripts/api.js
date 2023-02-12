@@ -61,6 +61,7 @@ function getActivity(event) {
                 const activityList = document.getElementById("activityList");
                 activityList.insertBefore(item, activityList.firstChild);
                 // Enable form fields once request has been completed:
+                sleep(1000)
                 form.querySelectorAll('input, button, select').forEach((field) => {
                     field.removeAttribute('disabled');
                 })
@@ -105,4 +106,9 @@ function isFreeCheckboxHandler() {
 function removeItemFromList(btn) {
     parentItem = btn.parentNode
     parentItem.remove()
+}
+
+// Sleep timer:
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
