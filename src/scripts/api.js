@@ -60,11 +60,11 @@ function getActivity(event) {
                 item.appendChild(del_button)
                 const activityList = document.getElementById("activityList");
                 activityList.insertBefore(item, activityList.firstChild);
-                // Enable form fields once request has been completed:
-                form.querySelectorAll('input, button, select').forEach((field) => {
-                    field.removeAttribute('disabled');
-                })
             }
+            // Enable form fields once request has been completed:
+            form.querySelectorAll('input, button, select').forEach((field) => {
+                field.removeAttribute('disabled');
+            })
         })
 }
 
